@@ -1,14 +1,27 @@
 import { useContext } from "react";
 import { AuthContext } from "../AuthPrider/AuthPrider";
+import { useLocation, useNavigate } from "react-router-dom";
+
 
 const Update = () => {
     const {user,updateUserProfile}=useContext(AuthContext);
+    const location  =useLocation();
+  const navigate=useNavigate();
     const handleUpdateprofile=e=>{
         e.preventDefault();
         const form=new FormData(e.currentTarget);
-        const email=form.get('email');
+        const name=form.get('name');
         const photo=form.get('photo');
-        console.log
+        // const  email=form.get('email')
+       
+        console.log(name,photo)
+        updateUserProfile(name,photo)
+        .then()
+        .catch()
+        navigate(location?.state?location.state:'/updateProfile')
+        
+    
+
     }
   return (
   
@@ -21,15 +34,15 @@ const Update = () => {
         <img className="rounded-2xl h-48 mt-5" src={user.photoURL} alt="" />
       <h1 className="text-2xl font-bold mt-3">User name: {user.
 displayName}</h1>
-      <p className="py-6 text-2xl">Email:{user.email}</p>
+      <p className="py-6 text-2xl">name:{user.email}</p>
     </div>
     <div className="card    max-w-sm shadow-2xl bg-base-100">
       <form className="card-body" onSubmit={handleUpdateprofile}>
         <div className="form-control">
           <label className="label">
-            <span className="label-text">Email</span>
+            <span className="label-text">Name</span>
           </label>
-          <input type="email" placeholder="email" className="input input-bordered" required />
+          <input type="text" name="name" placeholder="name" className="input input-bordered" required />
         </div>
         <div className="form-control">
           <label className="label">

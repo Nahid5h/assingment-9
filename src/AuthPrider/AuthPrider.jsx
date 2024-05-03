@@ -12,11 +12,13 @@ const AuthPrider = ({children}) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth,email,password);
     }
-    const updateUserProfile =(name, image)=>{
+    const updateUserProfile =(name ,image)=>{
         setLoading(true)
         return updateProfile(auth.currentUser,{
             displayName:name,
             photoURL:image,
+          
+            
         });
     }
     const singIn =(email,password)=>{
