@@ -2,11 +2,12 @@ import { createBrowserRouter } from "react-router-dom";
 import Roots from "../Layouts/Roots";
 import Home from "../pages/Home/Home";
 import Update from './../Layouts/Update';
-import AboutUs from './../Layouts/AboutUs';
+import AboutUs from '../pages/Home/AboutUs';
 import Error from "../Layouts/Error";
 import Details from "../Layouts/Details";
 import Login from "../Layouts/Login";
 import Register from "../Layouts/Register";
+import PriverRout from "../PrivateRoutes/PriverRout";
 
 const routes= createBrowserRouter([
     {
@@ -42,7 +43,9 @@ const routes= createBrowserRouter([
             ,
             {
                 path:'/Details/:id',
-                element:<Details></Details>,
+                element:<PriverRout>
+                    <Details></Details>
+                </PriverRout>,
                 loader: () =>fetch('/data.json')
                
             }

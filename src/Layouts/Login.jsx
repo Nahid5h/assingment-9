@@ -1,63 +1,89 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { Link } from "react-router-dom";
+// import { signInWithEmailAndPassword } from "firebase/auth";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthPrider/AuthPrider";
 
 const Login = () => {
-  const hanleLogin = e => {
+  const {singIn}=useContext(AuthContext)
+  const location= useLocation();
+  const navigate =useNavigate()
+  const handleLogin = e => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value
-    console.log(email, password);
+    const form = new FormData(e.currentTarget);
+    
+    const email =form.get('email');
+    const password=form.get('password');
+    console.log(email,password)
+    singIn(email,password)
+    .then(result =>{
+      console.log(result.user)
+      navigate(location?.state?location.state:'/')
+    })
+    .catch(error=>{
+      console.error(error);
+    })
+
   
 }
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
+    <div className=" flex justify-center items-center mt-7 ">
+        <div className="p-5  w-full lg:p-40 rounded-3xl shadow-2xl bg-base-100 ">
+      <h1 className="font-bold text-2xl text-center text-orange-500">
+        Login Here
+      </h1>
+      <form className="lg:card-body" onSubmit={handleLogin}>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            placeholder="email"
+            className="input input-bordered"
+            required
+          />
         </div>
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <form onSubmit={hanleLogin} className="card-body">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                placeholder="email"
-                name="email"
-               
-                className="input input-bordered"
-                required
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                placeholder="password"
-                name="password"
-                className="input input-bordered"
-                required
-              />
-          
-            </div>
-            <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
-            </div>
-          </form>
-          
-          <p className="text-center">
-            New to this website? please <Link to="/register">Register</Link>
-          </p>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            className="input input-bordered"
+            required
+          />
+        </div>
+        <div className="form-control mt-6">
+          <button className="btn bg-[#f39c12]  text-white hover:text-black">
+            Login
+          </button>
+        </div>
+      </form>
+      <p>
+        Do not have an account?
+        <Link to={"/register"} className="btn btn-link font-bold ">
+          Register
+        </Link>
+      </p>
+      <hr className="mb-3" />
+      <div>
+        <h1 className="text-xl text-center font-bold text-[#f39c12] ">
+          Login with . . .
+        </h1>
+
+        <div className="flex justify-around mt-3">
+          <button  className="btn btn-sm bg-[#f39c12]   text-white hover:text-black">
+            Google
+          </button>
+          <button className="btn btn-sm bg-[#f39c12]  text-white hover:text-black">
+            GitHub
+          </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };

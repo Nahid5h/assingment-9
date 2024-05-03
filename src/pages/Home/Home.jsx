@@ -8,6 +8,8 @@ const Home = () => {
         <Banner></Banner>
        <div className="mt-4">
        <Card></Card>
+   
+
        </div>
     </div>
     );

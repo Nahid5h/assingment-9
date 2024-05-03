@@ -1,7 +1,20 @@
-import { Link, NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../AuthPrider/AuthPrider";
 
 
 const Navber = () => {
+  const location  =useLocation();
+  const navigate=useNavigate();
+const {user,singOut}=useContext(AuthContext);
+
+const handleSingOut=()=>{
+  singOut()
+  .then()
+  .catch()
+  navigate(location?.state?location.state:'/')
+}
+
   const navLink = <>
     <li><NavLink to='/'>Home</NavLink></li>
     <li><NavLink to='/updateProfile'>Update profile</NavLink></li>
@@ -27,14 +40,41 @@ const Navber = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-          <div className="w-10 rounded-full">
-            <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-          </div>
-        </div>
-        <Link to={'/login'}>
+        
+        {
+          user?
+          (
+            <div className="flex items-center ">
+              <div
+                className="tooltip"
+                data-tip={user?.displayName || "user name not found"}
+              >
+                <div className="avatar">
+                  <div className=" w-10 rounded-full">
+                    <img
+                      src={
+                        user?.photoURL ||
+                        "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              <a
+                onClick={handleSingOut}
+                className="btn bg-[#f39c12]  text-xl rounded-full text-white"
+              >
+                Logout
+              </a>
+            </div>
+          )
+          :
+        (  <Link to={'/login'}>
           <button className="btn font-bold">log in</button>
-        </Link>
+        </Link>)
+
+        }
+       
       </div>
     </div>
   );
