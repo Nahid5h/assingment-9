@@ -2,9 +2,10 @@
 import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthPrider/AuthPrider";
+import Swal from "sweetalert2";
 
 const Login = () => {
-  const {singIn,gooleLogin,gitHublogin}=useContext(AuthContext)
+  const {singIn,gooleLogin,gitHublogin,user}=useContext(AuthContext)
   const location= useLocation();
   const navigate =useNavigate()
   const handleLogin = e => {
@@ -17,14 +18,36 @@ const Login = () => {
     singIn(email,password)
     .then(result =>{
       console.log(result.user)
+      if(result.user){
+        Swal.fire({
+          title: 'Success',
+          text: 'login Successfully',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        })
+      }
       navigate(location?.state?location.state:'/')
     })
     .catch(error=>{
       console.error(error);
     })
-
+  
   
 }
+const handleGithuLogin=()=>{
+
+  gitHublogin()
+  .then(result =>{
+    const loggedUer= result.user;
+    console.log(loggedUer)
+    
+  })
+  .catch(error=>{
+    console.log(error)
+  })
+
+}
+
   return (
     <div className=" flex justify-center items-center mt-7 ">
         <div className="p-5  w-full lg:p-40 rounded-3xl shadow-2xl bg-base-100 ">
@@ -81,7 +104,7 @@ const Login = () => {
             Google
           </button>
           <button 
-          onClick={()=>gitHublogin()}
+         onClick={handleGithuLogin}
           className="btn btn-sm bg-[#f39c12]  text-white hover:text-black">
             GitHub
           </button>
