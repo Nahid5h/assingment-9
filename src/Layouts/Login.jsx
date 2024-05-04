@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthPrider/AuthPrider";
 
 const Login = () => {
-  const {singIn}=useContext(AuthContext)
+  const {singIn,gooleLogin,gitHublogin}=useContext(AuthContext)
   const location= useLocation();
   const navigate =useNavigate()
   const handleLogin = e => {
@@ -75,10 +75,14 @@ const Login = () => {
         </h1>
 
         <div className="flex justify-around mt-3">
-          <button  className="btn btn-sm bg-[#f39c12]   text-white hover:text-black">
+          <button 
+          onClick={()=> gooleLogin()}
+          className="btn btn-sm bg-[#f39c12]   text-white hover:text-black">
             Google
           </button>
-          <button className="btn btn-sm bg-[#f39c12]  text-white hover:text-black">
+          <button 
+          onClick={()=>gitHublogin()}
+          className="btn btn-sm bg-[#f39c12]  text-white hover:text-black">
             GitHub
           </button>
         </div>

@@ -1,6 +1,10 @@
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.config";
+import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth/cordova";
+
+const pro = new GoogleAuthProvider();
+const gitpro = new GithubAuthProvider();
 
 export const AuthContext = createContext(null)
 const auth =getAuth(app)
@@ -25,6 +29,14 @@ const AuthPrider = ({children}) => {
         setLoading(true)
         return signInWithEmailAndPassword(auth,email,password);
     }
+    const gooleLogin=()=>{
+        setLoading(true)
+        return signInWithPopup(auth,pro)
+    }
+    const gitHublogin =()=>{
+        setLoading(true)
+        return  signInWithPopup(auth,gitpro)
+    }
     const singOut =()=>{
         setLoading(true)
         return signOut(auth)
@@ -48,7 +60,10 @@ const AuthPrider = ({children}) => {
    creatUser,
    singOut,
    singIn,
-   updateUserProfile ,
+   gooleLogin,
+   gitHublogin,
+   updateUserProfile 
+  
    
    
 

@@ -8,7 +8,7 @@ const Details = () => {
   const vie = view.find((vi) => vi.id === IdInt);
   console.log(vie);
   return (
-    <div className="mt-8 flex gap-10 ">
+    <div className="mt-8 gap-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 ">
       <div className="flex-1">
         <img className="rounded-2xl " src={vie.image} alt="" />
       </div>
