@@ -29,7 +29,9 @@ const routes= createBrowserRouter([
             },
             {
                 path:'/aboutus',
-                element:<AboutUs></AboutUs>,
+                element:<PriverRout>
+                    <AboutUs></AboutUs>
+                </PriverRout>,
                
             },
             {
