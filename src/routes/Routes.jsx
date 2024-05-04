@@ -22,7 +22,9 @@ const routes= createBrowserRouter([
             },
             {
                 path:'/updateProfile',
-                element:<Update></Update>,
+                element:<PriverRout>
+                    <Update></Update>
+                </PriverRout>,
                
             },
             {

@@ -19,6 +19,7 @@ const Login = () => {
     .then(result =>{
       console.log(result.user)
       if(result.user){
+       
         Swal.fire({
           title: 'Success',
           text: 'login Successfully',
@@ -38,8 +39,18 @@ const handleGithuLogin=()=>{
 
   gitHublogin()
   .then(result =>{
-    const loggedUer= result.user;
-    console.log(loggedUer)
+    // const loggedUer= result.user;
+    // console.log(loggedUer)
+    if(result.user){
+       
+      Swal.fire({
+        title: 'Success',
+        text: 'login Successfully',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      })
+    }
+    navigate(location?.state?location.state:'/')
     
   })
   .catch(error=>{
@@ -99,7 +110,21 @@ const handleGithuLogin=()=>{
 
         <div className="flex justify-around mt-3">
           <button 
-          onClick={()=> gooleLogin()}
+          onClick={()=> gooleLogin().then(result =>{
+            // const loggedUer= result.user;
+            // console.log(loggedUer)
+            if(result.user){
+               
+              Swal.fire({
+                title: 'Success',
+                text: 'login Successfully',
+                icon: 'success',
+                confirmButtonText: 'OK'
+              })
+            }
+            navigate(location?.state?location.state:'/')
+            
+          })}
           className="btn btn-sm bg-[#f39c12]   text-white hover:text-black">
             Google
           </button>

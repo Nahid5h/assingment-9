@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthPrider/AuthPrider";
+import Swal from "sweetalert2";
 
 
 const Navber = () => {
@@ -10,9 +11,22 @@ const {user,singOut}=useContext(AuthContext);
 
 const handleSingOut=()=>{
   singOut()
-  .then()
-  .catch()
-  navigate(location?.state?location.state:'/')
+  
+  .then(result =>{
+    const loggedUer= result.user;
+    console.log(loggedUer)
+    if(result.user==null){
+       
+      Swal.fire({
+        title: 'Success',
+        text: 'login Successfully',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      })
+    }
+
+    
+  })
 }
 
   const navLink = <>
